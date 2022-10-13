@@ -1,0 +1,29 @@
+
+<div *ngIf="stock" class="stock">
+  <div   class="stock-header">
+    {{stock.stockInformation.result[0].description}}
+    <button id="remove{{stock.stockSymbol}}" (click)="remover()">×</button>
+  </div>
+
+  <div class="stock-content">
+    <div>
+      change today:{{stock.stockQuote.d}}
+    </div>
+    <div>
+      opening price : {{stock.stockQuote.o}}
+    </div>
+    <div>
+      current price : {{stock.stockQuote.c}}
+    </div>
+    <div>
+      high price : {{stock.stockQuote.h}}
+    </div>
+
+  </div>
+  <div class="stock-footer">
+    <button type="button" id="sentiment{{stock.stockSymbol}}" [routerLink]="['/sentiment', stock.stockSymbol ]">Go to
+      social sentiment details >
+    </button>
+  </div>
+</div>
+

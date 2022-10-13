@@ -1,0 +1,27 @@
+sentiment component
+<!-- Not necessary because the loading is inferior to 250ms
+<div *ngIf="(isLoading | async)">
+ <p>Collecting data... Please wait a short moment.</p>
+</div>
+-->
+<button type="button" [routerLink]="['/']" backBtn>back></button>
+
+<div *ngIf="sentiment | async as data">
+ {{data.symbol}}
+ {{data | json}}
+
+
+ <br>
+ -----------------------
+ <div *ngFor="let sentiment of data.data">
+   {{getMonth(sentiment.month)| date: 'MMMM'}} |
+   {{sentiment.change}} |
+   {{sentiment.mspr}}
+   <div [ngSwitch]="sentiment.change > 0">
+     <div  *ngSwitchCase="true" style="background-color: green">PLUS</div>
+     <div  *ngSwitchCase="false"  style="background-color: red">MOINS</div>
+   </div>
+   <br>
+   -----------------------
+ </div>
+</div>
