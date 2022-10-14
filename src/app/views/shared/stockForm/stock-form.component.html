@@ -1,0 +1,12 @@
+<form [formGroup]="stockForm">
+  <div class="form-header">
+    <h1>{{"stock tracker" | uppercase}}</h1>
+  </div>
+  <div class="form-content-message">
+    <span>Enter the symbol of a stock to track (i.e. AAPL, TSLA, GOOGL)</span>
+  </div>
+  <div class="form-content">
+    <input type="text" id="stockInput" formControlName="stock" oninput="this.value = this.value.toUpperCase()">
+    <button id="trackBtn" type="submit" (click)="addStock()" [disabled]="( this.stockForm.invalid || (isLoading | async))">Track Stack</button>
+  </div>
+</form>

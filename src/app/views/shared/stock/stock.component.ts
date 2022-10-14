@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, Output} from "@angular/core";
-import {Stock} from "../../todo/stock";
+import {Stock} from "../../../types/stock";
 
 @Component({
   selector: 'app-stock',

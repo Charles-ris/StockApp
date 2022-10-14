@@ -4,8 +4,8 @@ import {HttpClient} from "@angular/common/http";
 import {BehaviorSubject, combineAll, combineLatestAll, forkJoin, merge, mergeMap, observable, Observable} from "rxjs";
 import {LocalStorageService} from "../../services/local-storage.service";
 import {StockService} from "../../services/stock.service";
-import {StockForm, StockFormGroup} from "../../todo/stock.form";
-import {Stock} from "../../todo/stock";
+import {StockForm, StockFormGroup} from "../../types/stock.form";
+import {Stock} from "../../types/stock";
 
 @Component({
   selector: 'app-home',
@@ -14,11 +14,11 @@ import {Stock} from "../../todo/stock";
 })
 export class HomeComponent implements OnInit {
 
-  appForm: FormGroup<StockForm> = new StockFormGroup();
-
   stocks!: Observable<Stock[]>;
 
   isLoading!: Observable<boolean>;
+
+  MESSAGE_LOADER = 'Updating data... Please wait a short moment.'
 
   constructor(
     private readonly localStorageService : LocalStorageService,
@@ -29,11 +29,6 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.stocks = this.localStorageService.getStock();
     this.isLoading = this.stockService.getIsLoading();
-  }
-
-  addStock() {
-    this.stockService.getStock(this.appForm.controls.stock.value); // todo
-    this.appForm.controls.stock.setValue('');
   }
 
   remove(indexOfelement: number, stocks: Stock[]) {

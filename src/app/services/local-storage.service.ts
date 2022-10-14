@@ -1,23 +1,21 @@
 import {BehaviorSubject, Observable} from "rxjs";
 import {Injectable} from "@angular/core";
-import {Stock} from "../todo/stock";
+import {Stock} from "../types/stock";
 
 @Injectable({
   providedIn: 'root'
 })
 export class LocalStorageService {
   private stock: BehaviorSubject<Stock[]> = new BehaviorSubject(<Stock[]>[]);
+
   constructor(){
-    // @ts-ignore
     this.stock = new BehaviorSubject(this.getItem());
   }
   getItem(key: string = "stocks"): Stock[] {
-    // @ts-ignore // todo
-    return localStorage.getItem(key)  ? JSON.parse(localStorage.getItem("stocks")) : [];
-
+    return localStorage.getItem(key)  ? JSON.parse(localStorage.getItem("stocks") as string) : [];
   }
 
-  setItem(key: string, value: string): void { //todo
+  setItem(key: string, value: string): void {
     localStorage.setItem(key,value);
     this.setStock( this.getItem(key));
   }

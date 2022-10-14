@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {BehaviorSubject, forkJoin, Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {LocalStorageService} from "./local-storage.service";
-import {Stock, StockQuote, StockSymbol} from "../todo/stock";
+import {Stock, StockQuote, StockSymbol} from "../types/stock";
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ export class StockService {
     private readonly httpClient: HttpClient
   ){}
 
-  getStock(stockName: string) {
+  getStock(stockName: string): void {
    this.isLoading.next(true);
     forkJoin([
       this.getStockQuote(stockName),
@@ -31,7 +31,7 @@ export class StockService {
     return this.httpClient.get<StockQuote>(`https://finnhub.io/api/v1/quote?symbol=${stockName}&token=bu4f8kn48v6uehqi3cqg`);
   }
 
-  getStockInformation(stockName: string): Observable <StockSymbol> { // todo result2
+  getStockInformation(stockName: string): Observable <StockSymbol> { // types result2
     return this.httpClient.get<StockSymbol>(`https://finnhub.io/api/v1/search?q=${stockName}&token=bu4f8kn48v6uehqi3cqg`);
   }
 

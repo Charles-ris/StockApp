@@ -1,0 +1,50 @@
+.stock {
+  background-color: white;
+  margin: 24px;
+  border-radius: 10px;
+
+  .stock-header {
+    padding: 12px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+
+  .stock-content {
+    padding: 12px;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    height: 200px;
+    .stock-content-1 {
+      display: flex;
+      flex: 2;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      p {
+        width: 40%;
+      }
+    }
+
+    .stock-content-2 {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-around;
+    }
+  }
+
+}
+
+a {
+  cursor: pointer;
+}
+
+.close-img {
+  height: 16px;
+}
+
+.trend-img {
+  height: 48px;
+}

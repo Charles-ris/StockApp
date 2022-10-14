@@ -1,0 +1,21 @@
+.form-header {
+  display: flex;
+  justify-content: center;
+}
+
+.form-content-message {
+  padding: 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.form-content {
+  display: flex;
+  justify-content: center;
+  input {
+    margin-right: 12px;
+  }
+  button {
+    margin-left: 12px;
+  }
+}

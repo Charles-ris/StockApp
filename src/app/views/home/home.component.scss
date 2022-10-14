@@ -4,3 +4,20 @@
   flex-wrap: wrap;
 }
 
+.stock{
+  width: 40%;
+}
+
+.stock-form {
+  display: flex;
+  justify-content: center;
+  .stock-form-content {
+    background-color: white;
+    height: 200px;
+    width: 60%;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+  }
+
+}
+

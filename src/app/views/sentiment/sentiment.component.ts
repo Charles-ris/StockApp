@@ -4,7 +4,7 @@ import {Observable} from "rxjs";
 import {DatePipe} from "@angular/common";
 import {SentimentService} from "../../services/sentiment.service";
 import {DateService} from "../../services/date.service";
-import {Sentiment} from "../../todo/sentiment";
+import {Sentiment} from "../../types/sentiment";
 
 @Component({
   selector: 'app-sentiment',
@@ -13,14 +13,15 @@ import {Sentiment} from "../../todo/sentiment";
 })
 export class SentimentComponent implements OnInit, OnDestroy {
 
+  MESSAGE_LOADER = 'Collecting data... Please wait a short moment.'
+
   sentiment!: Observable<Sentiment | undefined>;
   isLoading!: Observable<boolean>;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
               private readonly sentimentService: SentimentService,
-              private readonly dateService: DateService,
-              private readonly datepipe: DatePipe
+              private readonly dateService: DateService
   ) {}
 
   ngOnInit(): void {
@@ -28,24 +29,24 @@ export class SentimentComponent implements OnInit, OnDestroy {
     this.isLoading = this.sentimentService.getIsLoading();
     this.route.paramMap.subscribe(e => {
       if (e.get("symbol")) {
-        this.getSentiment(e.get("symbol") as string); // todo
+        this.getSentiment(e.get("symbol") as string); // types
       } else {
-        console.log('else');
-        //this.router.navigate(['']);
+        this.router.navigate(['']);
       }
     })
   }
 
   getSentiment(symbol: string) {
-    const toDate = this.datepipe.transform(this.dateService.getToDate(), 'yyyy-MM-dd') as string;
-    const fromDate = this.datepipe.transform(this.dateService.getFromDate(), 'yyyy-MM-dd') as string;
+    const toDate = this.dateService.getToDate();
+    const fromDate = this.dateService.getFromDate();
     this.sentimentService.getSentiment(symbol,fromDate,toDate);
   }
 
   ngOnDestroy(): void {
     this.sentimentService.destroy(); // todo
   }
-  getMonth(monthNumber: number) {
-    return this.dateService.getMonthNameFromMonthNumber(monthNumber);
+
+  getImageSource(change: number): string{
+    return change>0? "assets/increase.png" : "assets/decrease.png"
   }
 }

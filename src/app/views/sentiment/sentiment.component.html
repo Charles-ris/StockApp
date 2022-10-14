@@ -1,23 +1,27 @@
-
-<!-- Not necessary because the loading is inferior to 250ms
-<div *ngIf="(isLoading | async)">
- <p>Collecting data... Please wait a short moment.</p>
+<div class="content" *ngIf="sentiment | async as data">
+  <div class="sentiment">
+    <div class="sentiment-header">{{data.description}} ({{data.symbol}})</div>
+    <div class="sentiment-content">
+      <div class="sentiment-month" *ngFor="let monthSentiment of data.data; let indexOfelement=index;" [ngClass]="{withBorder: indexOfelement==1, isAlign: !(monthSentiment.change && monthSentiment.mspr)}">
+        <div class="sentiment-month-header">
+          <p> {{monthSentiment.date | date: 'MMMM yyyy'}}</p>
+          <img  *ngIf="monthSentiment.change" class="trend-img" src="{{getImageSource(monthSentiment.change)}}">
+        </div>
+        <div class="sentiment-month-content" *ngIf="monthSentiment.change &&monthSentiment.mspr else noDataAvailable">
+          <p>change: {{monthSentiment.change}}</p>
+          <p>MSPR: {{monthSentiment.mspr}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="content-footer">
+    <button type="button" [routerLink]="['/']" id="backBtn">back to list of stocks</button>
+  </div>
 </div>
--->
-<div *ngIf="sentiment | async as data">
- {{data.symbol}}
- -----------------------
- <div *ngFor="let sentiment of data.data">
-   {{getMonth(sentiment.month)| date: 'MMMM'}} |
-   {{sentiment.change}} |
-   {{sentiment.mspr}}
-   <div [ngSwitch]="sentiment.change > 0">
-     <div  *ngSwitchCase="true" style="background-color: green">PLUS</div>
-     <div  *ngSwitchCase="false"  style="background-color: red">MOINS</div>
-   </div>
-   <br>
-   -----------------------
- </div>
-</div>
 
-<button type="button" [routerLink]="['/']" backBtn>back to list of stocks</button>
+
+<ng-template #noDataAvailable>No data available</ng-template>
+
+<ng-container *ngIf="(isLoading | async)">
+  <app-loader [message]="MESSAGE_LOADER"></app-loader>
+</ng-container>

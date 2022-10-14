@@ -1,82 +1,18 @@
 <div>
 
-  <p>Enter the symbol of a stock to track (i.e. AAPL, TSLA, GOOGL)</p>
-
-
-  <form [formGroup]="appForm">
-    <input type="text" id="stockInput" formControlName="stock" oninput="this.value = this.value.toUpperCase()">
-    <button id="trackBtn" type="button" (click)="addStock()" [disabled]="(isLoading | async)">Track Stack</button>
-  </form>
+  <div class="stock-form">
+    <div class="stock-form-content">
+      <app-stock-form></app-stock-form>
+    </div>
+  </div>
 
   <div class="result">
-    <div *ngFor="let stock of stocks | async as data; let indexOfelement=index;">
-      <app-stock [stock]="stock"  [index]="indexOfelement" (remove)="remove($event, data)"></app-stock>
-    </div>
-  <!--  <div *ngFor="let stock of stocks | async as data; let indexOfelement=index;" class="stock">
-      <div   class="stock-header">
-        {{stock.stockInformation.result[0].description}}
-        <button (click)="remove(indexOfelement, data)" id="remove{{stock.stockSymbol}}">remove this</button>
-      </div>
-
-      <div class="stock-content">
-        <div>
-          change today:{{stock.stockQuote.d}}
-        </div>
-        <div>
-          opening price : {{stock.stockQuote.o}}
-        </div>
-        <div>
-          current price : {{stock.stockQuote.c}}
-        </div>
-        <div>
-          high price : {{stock.stockQuote.h}}
-        </div>
-
-      </div>
-      <div class="stock-footer">
-        <button type="button" id="sentiment{{stock.stockSymbol}}" [routerLink]="['/sentiment', stock.stockSymbol ]">Go to
-          social sentiment details >
-        </button>
-      </div> -->
+    <div *ngFor="let stock of stocks | async as data; let indexOfelement=index;" class="stock">
+      <app-stock [stock]="stock" [index]="indexOfelement" (remove)="remove($event, data)"></app-stock>
     </div>
   </div>
+</div>
 
-
-
-  <div *ngIf="(isLoading | async)">
-    <p>Updating data... Please wait a short moment.</p>
-  </div>
-
-
-  ------
-
-
-  <div *ngFor="let stock of stocks | async as data; let indexOfelement=index;">
-    <button (click)="remove(indexOfelement, data)" id="remove{{stock.stockSymbol}}">remove this</button>
-    {{stock.stockInformation.result[0].description}}
-    change today:{{stock.stockQuote.d}}
-    opening price : {{stock.stockQuote.o}}
-    current price : {{stock.stockQuote.c}}
-    high price : {{stock.stockQuote.h}}
-    <button type="button" id="sentiment{{stock.stockSymbol}}" [routerLink]="['/sentiment', stock.stockSymbol ]">Go to
-      social sentiment details >
-    </button>
-  </div>
-
-
-  <!--
-  <div *ngIf="stocksTab | async as stocks">
-    <div *ngFor="let stock of stocks; let indexOfelement=index;">
-      <button (click)="remove(indexOfelement)" id=" remove{{stock.infoStock.c}}">remove this</button>
-      {{stock.infoCompany.result[0].description}}
-      current price : {{stock.infoStock.c}}
-      change : {{stock.infoStock.d}}
-      percent change : {{stock.infoStock.dp}}
-      high price of the day : {{stock.infoStock.h}}
-      low price of the day : {{stock.infoStock.l}}
-      open price of the day : {{stock.infoStock.o}}
-      previous close price : {{stock.infoStock.pc}}
-      <button type="button">Go to social sentiment details ></button>
-    </div>
-  </div>
-   -->
+<ng-container *ngIf="(isLoading | async)">
+  <app-loader [message]="MESSAGE_LOADER"></app-loader>
+</ng-container>

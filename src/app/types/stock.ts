@@ -1,12 +1,12 @@
 export interface StockQuote {
-  c: string,
-  d: string,
+  c: number,
+  d: number,
   dp: string,
-  h: string,
+  h: number,
   l: string,
-  o: string,
-  pc: string,
-  t: string,
+  o: number,
+  pc: number,
+  t: number,
 }
 
 export interface StockSymbol {

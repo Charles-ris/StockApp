@@ -20,9 +20,4 @@ export class DateService {
     return date;
   }
 
-  getMonthNameFromMonthNumber(monthNumber: number) {
-    let date = new Date();
-    date.setMonth(monthNumber);
-    return date;
-  }
 }
