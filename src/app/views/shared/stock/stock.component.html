@@ -2,7 +2,7 @@
   <div class="stock-header">
     {{stock.stockInformation.result[0].description}} ({{stock.stockSymbol}})
     <a id="remove{{stock.stockSymbol}}" (click)="remover()"><img alt="close" class="close-img"
-                                                                 src="../../../../assets/close.png"></a>
+                                                                 src="assets/close.png"></a>
   </div>
 
   <div class="stock-content">
@@ -22,7 +22,7 @@
     </div>
     <div class="stock-content-2">
       <div>
-      <img alt="increase" class="trend-img" src="../../../../assets/increase.png">
+      <img *ngIf="stock.stockQuote.d>0 else decreaseImg" alt="increase" class="trend-img" src="assets/increase.png">
       </div>
       <div>
         <button type="button" id="sentiment{{stock.stockSymbol}}" [routerLink]="['/sentiment', stock.stockSymbol ]">
@@ -30,31 +30,8 @@
         </button>
       </div>
     </div>
-    <!--
-
-    <p>
-      <strong>change today: </strong> {{stock.stockQuote.d / 100 | percent:'2.2-5' }}
-    </p>
-    <p>
-      <strong>opening price : </strong> {{stock.stockQuote.o | currency}}
-    </p>
-    <p>
-      <strong>current price : </strong> {{stock.stockQuote.c | currency}}
-    </p>
-    <p>
-      <strong>high price : </strong> {{stock.stockQuote.h | currency}}
-    </p>
-    <div *ngIf="stock.stockQuote.d > 0 else decreaseImg">
-      <img alt="increase" class="trend-img" src="assets/increase.png">
-    </div>
-    <div class="stock-footer">
-      <button type="button" id="sentiment{{stock.stockSymbol}}" [routerLink]="['/sentiment', stock.stockSymbol ]">
-        Go to social sentiment details >
-      </button>
-    </div>
-    -->
   </div>
 </div>
 
 
-<ng-template #decreaseImg><img alt="decrease" class="trend-img" src="../../../../assets/decrease.png"></ng-template>
+<ng-template #decreaseImg><img alt="decrease" class="trend-img" src="assets/decrease.png"></ng-template>
