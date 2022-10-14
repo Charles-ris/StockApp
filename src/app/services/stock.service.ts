@@ -1,8 +1,8 @@
-import {Injectable} from "@angular/core";
-import {BehaviorSubject, forkJoin, Observable} from "rxjs";
-import {HttpClient} from "@angular/common/http";
-import {LocalStorageService} from "./local-storage.service";
-import {Stock, StockQuote, StockSymbol} from "../types/stock";
+import {Injectable} from '@angular/core';
+import {BehaviorSubject, forkJoin, Observable} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
+import {LocalStorageService} from './local-storage.service';
+import {StockQuote, StockSymbol} from '../types/stock';
 
 @Injectable({
   providedIn: 'root'

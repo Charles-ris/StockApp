@@ -1,5 +1,5 @@
-import {Component, EventEmitter, Input, Output} from "@angular/core";
-import {Stock} from "../../../types/stock";
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Stock} from '../../../types/stock';
 
 @Component({
   selector: 'app-stock',
@@ -18,7 +18,7 @@ export class StockComponent {
   constructor() {
   }
 
-  remover() {
+  remover():void {
     this.remove.emit(this.index)
   }
 }

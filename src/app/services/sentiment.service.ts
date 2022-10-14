@@ -1,9 +1,9 @@
-import {Injectable} from "@angular/core";
-import {BehaviorSubject, forkJoin, Observable} from "rxjs";
-import {HttpClient} from "@angular/common/http";
-import {Sentiment, SentimentData, SentimentResponse} from "../types/sentiment";
-import {DatePipe} from "@angular/common";
-import {StockService} from "./stock.service";
+import {Injectable} from '@angular/core';
+import {BehaviorSubject, forkJoin, Observable} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
+import {Sentiment, SentimentData, SentimentResponse} from '../types/sentiment';
+import {DatePipe} from '@angular/common';
+import {StockService} from './stock.service';
 
 @Injectable({
   providedIn: 'root'
@@ -30,11 +30,11 @@ export class SentimentService {
     });
   }
 
-  destroy() { //todo
-    this.sentiment.next(undefined)
+  reset() {
+    this.sentiment.next(undefined);
   }
 
-  getSentiment2(): Observable<Sentiment | undefined> { //todo
+  getSentimentData(): Observable<Sentiment | undefined> {
     return this.sentiment.asObservable();
   }
 
@@ -42,11 +42,11 @@ export class SentimentService {
     return this.isLoading.asObservable();
   }
 
-  transformSentimentResponsetoSentiment(fromDate: Date, toDate: Date, sentiment: SentimentResponse, description: string = ""): Sentiment {
-    let res: Sentiment = {symbol: sentiment.symbol, data: [], description: description}
-    let itereDate = fromDate
+  transformSentimentResponsetoSentiment(fromDate: Date, toDate: Date, sentiment: SentimentResponse, description: string = ''): Sentiment {
+    let res: Sentiment = {symbol: sentiment.symbol, data: [], description: description};
+    let itereDate = fromDate;
     while (itereDate <= toDate) {
-      let sentimentResult = sentiment.data.find(sentimentData => sentimentData.month === itereDate.getMonth() + 1 && sentimentData.year === itereDate.getFullYear())
+      let sentimentResult = sentiment.data.find(sentimentData => sentimentData.month === itereDate.getMonth() + 1 && sentimentData.year === itereDate.getFullYear());
       let date = new Date(itereDate);
       let sentimentData: SentimentData;
       sentimentData = sentimentResult ? {
@@ -58,10 +58,10 @@ export class SentimentService {
         symbol: sentiment.symbol,
         date: date
       } as SentimentData;
-      res.data = [...res.data, sentimentData]
-      itereDate.setMonth(itereDate.getMonth() + 1)
+      res.data = [...res.data, sentimentData];
+      itereDate.setMonth(itereDate.getMonth() + 1);
     }
-    return res
+    return res;
   }
 
 }

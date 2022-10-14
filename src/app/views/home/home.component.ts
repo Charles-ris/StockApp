@@ -1,11 +1,8 @@
-import {Component, OnInit} from "@angular/core";
-import {FormGroup} from "@angular/forms";
-import {HttpClient} from "@angular/common/http";
-import {BehaviorSubject, combineAll, combineLatestAll, forkJoin, merge, mergeMap, observable, Observable} from "rxjs";
-import {LocalStorageService} from "../../services/local-storage.service";
-import {StockService} from "../../services/stock.service";
-import {StockForm, StockFormGroup} from "../../types/stock.form";
-import {Stock} from "../../types/stock";
+import {Component, OnInit} from '@angular/core';
+import {Observable} from 'rxjs';
+import {LocalStorageService} from '../../services/local-storage.service';
+import {StockService} from '../../services/stock.service';
+import {Stock} from '../../types/stock';
 
 @Component({
   selector: 'app-home',
@@ -31,12 +28,12 @@ export class HomeComponent implements OnInit {
     this.isLoading = this.stockService.getIsLoading();
   }
 
-  remove(indexOfelement: number, stocks: Stock[]) {
+  remove(indexOfelement: number, stocks: Stock[]): void {
     stocks.splice(indexOfelement,1);
-    this.localStorageService.setItem("stocks", JSON.stringify(stocks));
+    this.localStorageService.setItem('stocks', JSON.stringify(stocks));
   }
 
-  callStock(stockName: string){
+  callStock(stockName: string): void {
     this.stockService.getStock(stockName);
   }
 }

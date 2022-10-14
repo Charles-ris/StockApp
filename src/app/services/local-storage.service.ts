@@ -1,6 +1,6 @@
-import {BehaviorSubject, Observable} from "rxjs";
-import {Injectable} from "@angular/core";
-import {Stock} from "../types/stock";
+import {BehaviorSubject, Observable} from 'rxjs';
+import {Injectable} from '@angular/core';
+import {Stock} from '../types/stock';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +11,8 @@ export class LocalStorageService {
   constructor(){
     this.stock = new BehaviorSubject(this.getItem());
   }
-  getItem(key: string = "stocks"): Stock[] {
-    return localStorage.getItem(key)  ? JSON.parse(localStorage.getItem("stocks") as string) : [];
+  getItem(key: string = 'stocks'): Stock[] {
+    return localStorage.getItem(key)  ? JSON.parse(localStorage.getItem('stocks') as string) : [];
   }
 
   setItem(key: string, value: string): void {
@@ -26,7 +26,7 @@ export class LocalStorageService {
     this.stock.next(stocks);
   }
 
-  addStock(stock: Stock) {
-    this.setItem("stocks", JSON.stringify([...this.stock.value, stock]));
+  addStock(stock: Stock): void {
+    this.setItem('stocks', JSON.stringify([...this.stock.value, stock]));
   }
 }

@@ -14,8 +14,6 @@ export interface StockSymbol {
   result: stockResult[],
 }
 
-
-
 export interface stockResult {
   description: string,
   displaySymbol: string,
